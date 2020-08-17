@@ -1,0 +1,60 @@
+intents:
+  - greet
+  - thanks
+  - goodbye
+  - affirm
+  - deny
+  - inform
+  - cancer
+  - symptoms_cancer
+  - treatments_cancer
+  - out_of_scope
+
+entities:
+  - cancer_type
+  - treatment_type
+
+forms:
+  - cancer_type_form
+  - treatmen_type_form
+
+slots:
+  cancer_type:
+    type: text
+  treatment_type:
+    type: text
+
+actions:
+  - action_cancer_search
+  - action_cancer_symptoms
+  - action_cancer_treatments
+
+responses:
+  utter_greet:
+  - text: "Heya! What can I assist you with today?"
+  - text: "Hello there! How can I help?"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_ask_again:
+  - text: "Sorry, I did not quite catch that. What did you mean booy??"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_ask_cancer_type:
+  - text: "What type of cancer would you like to know more about?"
+
+  utter_ask_cancer_symptom_type:
+  - text: "What type of cancer would you like to know the symptoms for?"
+
+  utter_ask_treatment_type:
+  - text: "What kind of treatment would you like to know more about?"
+
+  utter_default:
+  - text: "Sorry I did not quite catch that."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
