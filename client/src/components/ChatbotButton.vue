@@ -1,8 +1,8 @@
 <template>
   <div class="chatbot-icon-wrapper" @click="handleClick">
-    <div class="chatbot-icon">
+    <div class="chatbot-icon" :class="{'close': chatOpen}">
       <transition name="rotate" mode="out-in">
-        <svg viewBox="0 0 24 24" :class="{'close': chatOpen}" :key="!chatOpen"><use :xlink:href="selectedIcon" /></svg>
+        <svg viewBox="0 0 24 24" :key="!chatOpen"><use :xlink:href="selectedIcon" /></svg>
       </transition>
     </div>
   </div>
@@ -33,13 +33,20 @@ export default {
 
 <style lang="scss" scoped>
 .chatbot-icon-wrapper {
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   background: rgba(126, 87, 194, 0.25);
   height: 80px;
   width: 80px;
   border-radius: 50%;
   bottom: 32px;
   right: 32px;
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    .chatbot-icon {
+      background: #D89CF6;
+    }
+  }
   cursor: pointer;
   .chatbot-icon {
     display: flex;
@@ -50,6 +57,7 @@ export default {
     width: 64px;
     border-radius: 50%;
     margin: 8px 0 0 8px;
+    transition: all .25s ease;
     svg {
       height: 32px;
       width: 32px;
@@ -59,7 +67,12 @@ export default {
       stroke-linecap: round;
       stroke-linejoin: round;
       position: absolute;
-      &.close {
+    }
+    // &:hover{
+    //   background: #D89CF6;
+    // }
+    &.close {
+      svg {
         height: 44px;
         width: 44px;
       }

@@ -6,7 +6,11 @@
 * goodbye
   - utter_goodbye
 
-## search cancer
+## help
+* help
+  - action_help
+
+## search_cancer
 * cancer{"cancer_type": "breast"}
   - action_cancer_search
 * thanks

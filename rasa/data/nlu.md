@@ -6,6 +6,16 @@
 - good evening
 - hey there
 
+## intent:help
+- how can you help me?
+- what can you do?
+- what can you do for me?
+- help
+- help me
+- can you help me?
+- what can I ask you?
+- what can you answer?
+
 ## intent:thanks
 - thank you
 - thanks

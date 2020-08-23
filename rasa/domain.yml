@@ -1,5 +1,6 @@
 intents:
   - greet
+  - help
   - thanks
   - goodbye
   - affirm
@@ -28,20 +29,22 @@ actions:
   - action_cancer_search
   - action_cancer_symptoms
   - action_cancer_treatments
+  - action_help
 
 responses:
   utter_greet:
-  - text: "Heya! What can I assist you with today?"
-  - text: "Hello there! How can I help?"
+  - text: "Heya! 👋"
+  - text: "Hello there! 👋 How can I help you?"
+  - text: "Hey there! 👋 How can I assist you?"
 
   utter_did_that_help:
   - text: "Did that help you?"
 
   utter_ask_again:
-  - text: "Sorry, I did not quite catch that. What did you mean booy??"
+  - text: "I’m sorry, I didn’t understand that!\nCould you rephrase it? Or say `help` to learn more about how I can help you."
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Bye, have a great day! 👋"
 
   utter_ask_cancer_type:
   - text: "What type of cancer would you like to know more about?"
@@ -53,7 +56,7 @@ responses:
   - text: "What kind of treatment would you like to know more about?"
 
   utter_default:
-  - text: "Sorry I did not quite catch that."
+  - text: "I’m sorry, I didn’t understand that!\nCould you rephrase it? Or say 'help' to learn more about how I can help you."
 
 session_config:
   session_expiration_time: 60

@@ -15,6 +15,28 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
+class ActionHelp(Action):
+
+    def name(self) -> Text:
+        return "action_help"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            try:
+                buttons = {"buttons":
+                [
+                    {"title": "Breast", "payload": "'attribute':'Breast cancer'"},
+                    {"title": "Colorectal", "payload": "'attribute':'Colorectal cancer'"},
+                    {"title": "Leukemia", "payload": "'attribute':'Leukemia'"}
+                ]}
+                dispatcher.utter_message(f"I can help you find information about breast cancer, colorectal cancer, leukemia, and their symptoms!", attachment=buttons)
+            except:
+                dispatcher.utter_message(template="utter_ask_again", tracker = tracker)
+            
+            return []
+
+
 class ActionSearchCancer(Action):
 
     def name(self) -> Text:
@@ -34,10 +56,10 @@ class ActionSearchCancer(Action):
                     else:
                         doc_ref = db.collection(u'healthai').document(u'diseases').collection(u'cancer').document(valid_cancer_type)
                         doc = doc_ref.get()
-                        fuck = doc.to_dict()
-                        desc = fuck['description']
-                        buttons = [{"title": "💊 Symptoms", "payload": "'attribute':'symptoms'"}, {"title": "Treatments", "payload": "'attribute':'treatments'"}]
-                        link = {"link": fuck['link'], "buttons": buttons}
+                        docToDict = doc.to_dict()
+                        desc = docToDict['description']
+                        buttons = [{"title": "Symptoms 💊", "payload": "'attribute':'symptoms'"}, {"title": "Treatments", "payload": "'attribute':'treatments'"}]
+                        link = {"link": docToDict['link'], "buttons": buttons}
                         dispatcher.utter_message(f"{desc}", attachment=link)
             except:
                 dispatcher.utter_message(template="utter_ask_again", tracker = tracker)
@@ -64,8 +86,8 @@ class ActionSymptomsCancer(Action):
                     else:
                         doc_ref = db.collection(u'healthai').document(u'diseases').collection(u'cancer').document(valid_cancer_type)
                         doc = doc_ref.get()
-                        fuck = doc.to_dict()
-                        symptoms = fuck['symptoms']
+                        docToDict = doc.to_dict()
+                        symptoms = docToDict['symptoms']
                         test = {"symptoms": symptoms}
                         dispatcher.utter_message(f"The symptoms for {valid_cancer_type} cancer are: ", attachment=test)
             except:
@@ -92,8 +114,8 @@ class ActionCancerTreatmenets(Action):
                     else:
                         doc_ref = db.collection(u'healthai').document(u'diseases').collection(u'cancer').document(valid_cancer_type)
                         doc = doc_ref.get()
-                        fuck = doc.to_dict()
-                        treatments = fuck['treatments']
+                        docToDict = doc.to_dict()
+                        treatments = docToDict['treatments']
                         test = {"treatments": treatments}
                         dispatcher.utter_message(f"The treatments for {valid_cancer_type} cancer are: ", attachment=test)
             except:

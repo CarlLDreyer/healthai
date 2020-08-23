@@ -68,7 +68,7 @@ export default {
       ul {
         padding-left: 24px;
         margin: 8px 0 0 0;
-        font-size: 13px;
+        font-size: 14px;
       }
     }
     &.link {

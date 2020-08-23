@@ -140,17 +140,19 @@ export default {
     messageQueue (queue) {
       let test = queue[0] || {}
       if (Object.keys(test).length === 0 && test.constructor === Object) return
-      this.isTyping = true
       const delay = ((queue[0]?.text?.length / 50) * 1000) || 80
       let calculatedTime = delay > 2000 ? 2000 : delay < 500 ? 750 : delay
       setTimeout(() => {
-        this.isTyping = false
-        return new Promise((resolve) => {
-          let message = queue.shift()
-          if (message !== undefined) this.createNewMessage(message)
-          setTimeout(resolve, 1500)
-        })
-      }, calculatedTime)
+        this.isTyping = true
+        setTimeout(() => {
+          return new Promise((resolve) => {
+            let message = queue.shift()
+            if (message !== undefined) this.createNewMessage(message)
+            this.isTyping = false
+            setTimeout(resolve, 1000)
+          })
+        }, calculatedTime)
+      }, 500)
     },
     chatOpen (isOpen) {
       if (!this.initialShown) {
@@ -175,22 +177,34 @@ export default {
 
 <style lang="scss" scoped>
 .chatbot-window {
-  position: absolute;
+  height: 600px;
+  position: fixed;
   width: 360px;
   border-radius: 10px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   right: 32px;
   bottom: 132px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
   @media (max-width: 764px) {
+    overflow: hidden;
+    height: auto;
     width: 100%;
     right: 0;
     bottom: 0;
+    top: 0;
   }
   .header {
-    background: #7E57C2;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #7E57C2 0%, #D89CF6 100%);
     display: flex;
     align-items: center;
+    border-radius: 10px 10px 0 0;
+
+    @media (max-width: 764px) {
+      border-radius: 0;
+    }
     .avatar {
       display: block;
       height: 48px;
@@ -218,6 +232,7 @@ export default {
     }
     .mobile-close {
       @media (max-width: 764px) {
+        -webkit-tap-highlight-color: transparent;
         cursor: pointer;
         margin-right: 8px;
         svg {
@@ -233,15 +248,7 @@ export default {
     }
   }
   .message-body {
-    max-height: 480px;
-    &.short {
-      max-height: 432px;
-      @media (max-width: 764px) {
-        height: calc(100vh - 194px);
-        max-height: 100%;
-      }
-    }
-    height: 70vh;
+    flex: 1;
     background: #f2eeff;
     display: flex;
     flex-direction: column-reverse;
@@ -250,8 +257,8 @@ export default {
     overflow-y: scroll;
 
     @media (max-width: 764px) {
-      height: calc(100vh - 146px);
-      max-height: 100%;
+      flex: 1;
+      height: auto;
     }
   }
   .message-buttons {
@@ -259,16 +266,22 @@ export default {
     padding: 8px 8px 4px 8px;
     background: #f2eeff;
     justify-content: flex-end;
+    -webkit-tap-highlight-color: transparent;
     button {
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
-      padding: 6px 14px;
+      padding: 8px 14px;
       margin-right: 4px;
       background: none;
-      border: 2px solid #916dd5;
+      border: none;
       border-radius: 24px;
-      color: #916dd5;
+      color: white;
+      background: #D89CF6;
+      transition: all .25s ease;
+      &:hover {
+        background: #7E57C2;
+      }
       &:last-child {
         margin-right: 0;
       }
@@ -280,24 +293,21 @@ export default {
     height: 42px;
     position: relative;
     background: #f2eeff;
-    padding: 12px 0 20px 0;
+    padding: 12px 0 12px 0;
+    border-radius: 0 0 10px 10px;
 
     @media (max-width: 764px) {
-      // height: 64px;
+      border-radius: 0;
     }
     input {
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-      width: 240px;
+      width: 70%;
       border-radius: 20px;
       resize: none;
       border: none;
       font-size: 14px;
       padding: 12px 16px;
       margin-right: 6px;
-
-      @media (max-width: 764px) {
-        width: 60%;
-      }
     }
     button {
       position: relative;
@@ -311,9 +321,16 @@ export default {
       outline: none;
       cursor: pointer;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      transition: all .25s ease;
+      -webkit-tap-highlight-color: transparent;
+      &:active {
+        transform: scale(1.1);
+      }
 
-      @media (max-width: 764px) {
-        // width: 82px;
+      @media (min-width: 764px) {
+        &:hover{
+          background: #D89CF6;
+        }
       }
       svg {
         position: absolute;

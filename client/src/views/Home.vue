@@ -1,6 +1,7 @@
 <template>
   <section>
-    <h1>Health.ai</h1>
+    <h1>{{ health }}</h1>
+    <p>{{ desc }}</p>
     <Chatbot />
   </section>
 </template>
@@ -11,7 +12,13 @@ export default {
   name: 'Home',
   components: {
     Chatbot
-  }
+  },
+  data () {
+    return {
+      health: 'Health.ai',
+      desc: 'An AI-driven medical assistant'
+    }
+  },
 }
 </script>
 
@@ -20,14 +27,19 @@ section {
   background: #242424;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-h1 {
   color: white;
-  letter-spacing: 0.5px;
-  font-size: 48px;
-  user-select: none;
+    h1 {
+      letter-spacing: 0.5px;
+      margin-bottom: 0;
+      font-size: 48px;
+    }
+    p {
+      margin-top: 0;
+      font-size: 18px;
+    }
 }
 </style>
