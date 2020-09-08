@@ -16,7 +16,11 @@
         <ChatbotMsg v-for="message in messages" :key="message.id" :message="message" :class="setMessageBorder(message)" />
       </div>
       <div class="message-buttons" v-if="hasButtons">
-        <Button v-for="button in buttons" :key="button.id" @click="handleButtonClick(button)">{{ button.title }}</Button>
+        <Button v-for="button in buttons"
+                :key="button.id"
+                @click="handleButtonClick(button)">
+          {{ button.title }}
+        </Button>
       </div>
       <div class="message-input">
         <input :value="userInput"
@@ -180,7 +184,6 @@ export default {
   height: 600px;
   position: fixed;
   width: 360px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   right: 32px;

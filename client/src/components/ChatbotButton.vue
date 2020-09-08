@@ -33,7 +33,6 @@ export default {
 
 <style lang="scss" scoped>
 .chatbot-icon-wrapper {
-  // position: absolute;
   position: fixed;
   background: rgba(126, 87, 194, 0.25);
   height: 80px;
